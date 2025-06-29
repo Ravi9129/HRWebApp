@@ -9,15 +9,15 @@ using HRWebApp.Services.Interfaces;
 using HRWebApp.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore; // Add this
-//using FluentValidation.AspNetCore; // Add this
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString,
+    sqlOptions => sqlOptions.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
@@ -37,11 +37,7 @@ builder.Services.AddControllersWithViews();
 // Add AutoMapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
-// Add FluentValidation
-//builder.Services.AddFluentValidationAutoValidation();
-//builder.Services.AddFluentValidationClientsideAdapters();
-
-// Register repositories
+// Register repositories and services
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -50,7 +46,6 @@ builder.Services.AddScoped<IAuditRepository, AuditRepository>();
 builder.Services.AddScoped<IPageAccessRepository, PageAccessRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-// Register services
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IProductService, ProductService>();

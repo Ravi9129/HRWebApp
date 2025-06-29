@@ -150,6 +150,29 @@ namespace HRWebApp.Data
             builder.Entity<AuditLog>()
                 .Property(a => a.Timestamp)
                 .HasDefaultValueSql("GETDATE()");
+
+            // Seed initial data
+            SeedInitialData(builder);
+        }
+
+        private void SeedInitialData(ModelBuilder builder)
+        {
+            // Seed Departments
+            builder.Entity<Department>().HasData(
+                new Department { Id = 1, Name = "Human Resources", Description = "HR Department", IsActive = true, CreatedDate = DateTime.UtcNow },
+                new Department { Id = 2, Name = "Information Technology", Description = "IT Department", IsActive = true, CreatedDate = DateTime.UtcNow },
+                new Department { Id = 3, Name = "Finance", Description = "Finance Department", IsActive = true, CreatedDate = DateTime.UtcNow },
+                new Department { Id = 4, Name = "Operations", Description = "Operations Department", IsActive = true, CreatedDate = DateTime.UtcNow },
+                new Department { Id = 5, Name = "Marketing", Description = "Marketing Department", IsActive = true, CreatedDate = DateTime.UtcNow }
+            );
+
+            // Seed Product Categories
+            builder.Entity<ProductCategory>().HasData(
+                new ProductCategory { Id = 1, Name = "Electronics", Description = "Electronic items", IsActive = true },
+                new ProductCategory { Id = 2, Name = "Stationery", Description = "Office stationery items", IsActive = true },
+                new ProductCategory { Id = 3, Name = "Furniture", Description = "Office furniture", IsActive = true },
+                new ProductCategory { Id = 4, Name = "Software", Description = "Software licenses", IsActive = true }
+            );
         }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using HRWebApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace HRWebApp.Data
 {
@@ -59,8 +56,7 @@ namespace HRWebApp.Data
                     FirstName = "Admin",
                     LastName = "User",
                     EmailConfirmed = true,
-                    IsActive = true,
-                    CreatedDate = new DateTime(2023, 1, 1)
+                    IsActive = true
                 };
 
                 var createResult = await userManager.CreateAsync(user, "Admin@123");
@@ -77,41 +73,11 @@ namespace HRWebApp.Data
             {
                 var departments = new List<Department>
                 {
-                    new Department {
-                        Id = 1,
-                        Name = "Human Resources",
-                        Description = "HR Department",
-                        IsActive = true,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
-                    new Department {
-                        Id = 2,
-                        Name = "Information Technology",
-                        Description = "IT Department",
-                        IsActive = true,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
-                    new Department {
-                        Id = 3,
-                        Name = "Finance",
-                        Description = "Finance Department",
-                        IsActive = true,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
-                    new Department {
-                        Id = 4,
-                        Name = "Operations",
-                        Description = "Operations Department",
-                        IsActive = true,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
-                    new Department {
-                        Id = 5,
-                        Name = "Marketing",
-                        Description = "Marketing Department",
-                        IsActive = true,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    }
+                    new Department { Name = "Human Resources", Description = "HR Department", IsActive = true },
+                    new Department { Name = "Information Technology", Description = "IT Department", IsActive = true },
+                    new Department { Name = "Finance", Description = "Finance Department", IsActive = true },
+                    new Department { Name = "Operations", Description = "Operations Department", IsActive = true },
+                    new Department { Name = "Marketing", Description = "Marketing Department", IsActive = true }
                 };
 
                 await context.Departments.AddRangeAsync(departments);
@@ -125,30 +91,10 @@ namespace HRWebApp.Data
             {
                 var categories = new List<ProductCategory>
                 {
-                    new ProductCategory {
-                        Id = 1,
-                        Name = "Electronics",
-                        Description = "Electronic items",
-                        IsActive = true
-                    },
-                    new ProductCategory {
-                        Id = 2,
-                        Name = "Stationery",
-                        Description = "Office stationery items",
-                        IsActive = true
-                    },
-                    new ProductCategory {
-                        Id = 3,
-                        Name = "Furniture",
-                        Description = "Office furniture",
-                        IsActive = true
-                    },
-                    new ProductCategory {
-                        Id = 4,
-                        Name = "Software",
-                        Description = "Software licenses",
-                        IsActive = true
-                    }
+                    new ProductCategory { Name = "Electronics", Description = "Electronic items", IsActive = true },
+                    new ProductCategory { Name = "Stationery", Description = "Office stationery items", IsActive = true },
+                    new ProductCategory { Name = "Furniture", Description = "Office furniture", IsActive = true },
+                    new ProductCategory { Name = "Software", Description = "Software licenses", IsActive = true }
                 };
 
                 await context.ProductCategories.AddRangeAsync(categories);
@@ -167,178 +113,49 @@ namespace HRWebApp.Data
 
                 var pageAccesses = new List<PageAccess>
                 {
-                    // Admin permissions
-                    new PageAccess {
-                        Id = 1,
-                        RoleId = adminRole.Id,
-                        PageName = "Admin/Dashboard",
-                        CanView = true,
-                        CanCreate = true,
-                        CanEdit = true,
-                        CanDelete = true,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
-                    new PageAccess {
-                        Id = 2,
-                        RoleId = adminRole.Id,
-                        PageName = "Admin/Employees",
-                        CanView = true,
-                        CanCreate = true,
-                        CanEdit = true,
-                        CanDelete = true,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
-                    new PageAccess {
-                        Id = 3,
-                        RoleId = adminRole.Id,
-                        PageName = "Admin/Departments",
-                        CanView = true,
-                        CanCreate = true,
-                        CanEdit = true,
-                        CanDelete = true,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
-                    new PageAccess {
-                        Id = 4,
-                        RoleId = adminRole.Id,
-                        PageName = "Admin/Products",
-                        CanView = true,
-                        CanCreate = true,
-                        CanEdit = true,
-                        CanDelete = true,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
-                    new PageAccess {
-                        Id = 5,
-                        RoleId = adminRole.Id,
-                        PageName = "Admin/Roles",
-                        CanView = true,
-                        CanCreate = true,
-                        CanEdit = true,
-                        CanDelete = true,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
-                    new PageAccess {
-                        Id = 6,
-                        RoleId = adminRole.Id,
-                        PageName = "Admin/PageAccess",
-                        CanView = true,
-                        CanCreate = true,
-                        CanEdit = true,
-                        CanDelete = true,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
-                    new PageAccess {
-                        Id = 7,
-                        RoleId = adminRole.Id,
-                        PageName = "Admin/Reports",
-                        CanView = true,
-                        CanCreate = true,
-                        CanEdit = true,
-                        CanDelete = true,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
+                    // Admin has full access to everything
+                    new PageAccess { RoleId = adminRole.Id, PageName = "Admin/Dashboard", CanView = true, CanCreate = true, CanEdit = true, CanDelete = true },
+                    new PageAccess { RoleId = adminRole.Id, PageName = "Admin/Employees", CanView = true, CanCreate = true, CanEdit = true, CanDelete = true },
+                    new PageAccess { RoleId = adminRole.Id, PageName = "Admin/Departments", CanView = true, CanCreate = true, CanEdit = true, CanDelete = true },
+                    new PageAccess { RoleId = adminRole.Id, PageName = "Admin/Products", CanView = true, CanCreate = true, CanEdit = true, CanDelete = true },
+                    new PageAccess { RoleId = adminRole.Id, PageName = "Admin/Roles", CanView = true, CanCreate = true, CanEdit = true, CanDelete = true },
+                    new PageAccess { RoleId = adminRole.Id, PageName = "Admin/PageAccess", CanView = true, CanCreate = true, CanEdit = true, CanDelete = true },
+                    new PageAccess { RoleId = adminRole.Id, PageName = "Admin/Reports", CanView = true, CanCreate = true, CanEdit = true, CanDelete = true },
 
-                    // HR permissions
-                    new PageAccess {
-                        Id = 8,
-                        RoleId = hrRole.Id,
-                        PageName = "HR/Dashboard",
-                        CanView = true,
-                        CanCreate = false,
-                        CanEdit = false,
-                        CanDelete = false,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
-                    new PageAccess {
-                        Id = 9,
-                        RoleId = hrRole.Id,
-                        PageName = "HR/Employees",
-                        CanView = true,
-                        CanCreate = true,
-                        CanEdit = true,
-                        CanDelete = false,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
-                    new PageAccess {
-                        Id = 10,
-                        RoleId = hrRole.Id,
-                        PageName = "HR/Departments",
-                        CanView = true,
-                        CanCreate = true,
-                        CanEdit = true,
-                        CanDelete = false,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
+                    // HR has access to employee and department management
+                    new PageAccess { RoleId = hrRole.Id, PageName = "HR/Dashboard", CanView = true, CanCreate = false, CanEdit = false, CanDelete = false },
+                    new PageAccess { RoleId = hrRole.Id, PageName = "HR/Employees", CanView = true, CanCreate = true, CanEdit = true, CanDelete = false },
+                    new PageAccess { RoleId = hrRole.Id, PageName = "HR/Departments", CanView = true, CanCreate = true, CanEdit = true, CanDelete = false },
 
-                    // Manager permissions
-                    new PageAccess {
-                        Id = 11,
-                        RoleId = managerRole.Id,
-                        PageName = "Manager/Dashboard",
-                        CanView = true,
-                        CanCreate = false,
-                        CanEdit = false,
-                        CanDelete = false,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
-                    new PageAccess {
-                        Id = 12,
-                        RoleId = managerRole.Id,
-                        PageName = "Manager/Employees",
-                        CanView = true,
-                        CanCreate = false,
-                        CanEdit = false,
-                        CanDelete = false,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
-                    new PageAccess {
-                        Id = 13,
-                        RoleId = managerRole.Id,
-                        PageName = "Manager/Reports",
-                        CanView = true,
-                        CanCreate = false,
-                        CanEdit = false,
-                        CanDelete = false,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
+                    // Manager has limited access
+                    new PageAccess { RoleId = managerRole.Id, PageName = "Manager/Dashboard", CanView = true, CanCreate = false, CanEdit = false, CanDelete = false },
+                    new PageAccess { RoleId = managerRole.Id, PageName = "Manager/Employees", CanView = true, CanCreate = false, CanEdit = false, CanDelete = false },
+                    new PageAccess { RoleId = managerRole.Id, PageName = "Manager/Reports", CanView = true, CanCreate = false, CanEdit = false, CanDelete = false },
 
-                    // Employee permissions
-                    new PageAccess {
-                        Id = 14,
-                        RoleId = employeeRole.Id,
-                        PageName = "Employee/Dashboard",
-                        CanView = true,
-                        CanCreate = false,
-                        CanEdit = false,
-                        CanDelete = false,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
-                    new PageAccess {
-                        Id = 15,
-                        RoleId = employeeRole.Id,
-                        PageName = "Employee/Profile",
-                        CanView = true,
-                        CanCreate = false,
-                        CanEdit = true,
-                        CanDelete = false,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    },
-                    new PageAccess {
-                        Id = 16,
-                        RoleId = employeeRole.Id,
-                        PageName = "Employee/SalarySlips",
-                        CanView = true,
-                        CanCreate = false,
-                        CanEdit = false,
-                        CanDelete = false,
-                        CreatedDate = new DateTime(2023, 1, 1)
-                    }
+                    // Employee has minimal access
+                    new PageAccess { RoleId = employeeRole.Id, PageName = "Employee/Dashboard", CanView = true, CanCreate = false, CanEdit = false, CanDelete = false },
+                    new PageAccess { RoleId = employeeRole.Id, PageName = "Employee/Profile", CanView = true, CanCreate = false, CanEdit = true, CanDelete = false },
+                    new PageAccess { RoleId = employeeRole.Id, PageName = "Employee/SalarySlips", CanView = true, CanCreate = false, CanEdit = false, CanDelete = false }
                 };
 
                 await context.PageAccesses.AddRangeAsync(pageAccesses);
                 await context.SaveChangesAsync();
             }
         }
+
+        public static void Seed(this ModelBuilder modelBuilder)
+        {
+            // Additional seed data that might be needed for testing
+            modelBuilder.Entity<ProductCategory>().HasData(
+                new ProductCategory { Id = 1, Name = "Electronics", Description = "Electronic items", IsActive = true },
+                new ProductCategory { Id = 2, Name = "Stationery", Description = "Office stationery items", IsActive = true }
+            );
+
+            modelBuilder.Entity<Department>().HasData(
+                new Department { Id = 1, Name = "Human Resources", Description = "HR Department", IsActive = true },
+                new Department { Id = 2, Name = "Information Technology", Description = "IT Department", IsActive = true }
+            );
+        }
     }
 }
+//ravi
