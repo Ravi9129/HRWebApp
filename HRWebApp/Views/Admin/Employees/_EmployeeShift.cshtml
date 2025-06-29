@@ -1,0 +1,32 @@
+﻿@model HRWebApp.DTOs.EmployeeShiftDTO
+
+<div class="row">
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4">Start Time</dt>
+            <dd class="col-sm-8">@Model.StartTime.ToString(@"hh\:mm")</dd>
+
+            <dt class="col-sm-4">End Time</dt>
+            <dd class="col-sm-8">@Model.EndTime.ToString(@"hh\:mm")</dd>
+
+            <dt class="col-sm-4">Weekly Off Day</dt>
+            <dd class="col-sm-8">@Model.WeeklyOffDay</dd>
+
+            <dt class="col-sm-4">Lunch Break</dt>
+            <dd class="col-sm-8">@(Model.HasLunchBreak ? "Yes" : "No")</dd>
+
+            @if (Model.HasLunchBreak)
+            {
+                <dt class="col-sm-4">Lunch Break Time</dt>
+                <dd class="col-sm-8">@Model.LunchBreakStart?.ToString(@"hh\:mm") - @Model.LunchBreakEnd?.ToString(@"hh\:mm")</dd>
+            }
+        </dl>
+    </div>
+</div>
+
+@if (ViewContext.RouteData.Values["action"].ToString() != "EmployeeShift")
+{
+    <div>
+        <a asp-action="EmployeeShift" asp-route-id="@ViewContext.RouteData.Values["id"]" class="btn btn-primary">Edit Shift</a>
+    </div>
+}

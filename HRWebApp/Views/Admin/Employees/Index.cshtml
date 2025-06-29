@@ -1,0 +1,59 @@
+﻿@model IEnumerable<HRWebApp.DTOs.EmployeeDetailDTO>
+
+@{
+    ViewData["Title"] = "Employees";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Employees</h2>
+    <a asp-action="CreateEmployee" class="btn btn-primary">Add New Employee</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.EmployeeId</td>
+                        <td>@item.FullName</td>
+                        <td>@item.Email</td>
+                        <td>@item.Department</td>
+                        <td>@item.Role</td>
+                        <td>
+                            @if (item.IsActive)
+                            {
+                                <span class="badge bg-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Inactive</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a asp-action="EmployeeDetails" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+                                <a asp-action="EditEmployee" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                                <form asp-action="DeleteEmployee" asp-route-id="@item.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this employee?');">
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

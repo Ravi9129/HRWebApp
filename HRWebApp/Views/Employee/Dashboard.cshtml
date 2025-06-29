@@ -1,0 +1,64 @@
+﻿@model HRWebApp.DTOs.EmployeeDetailDTO
+
+@{
+    ViewData["Title"] = "Employee Dashboard";
+}
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h5 class="card-title">Welcome</h5>
+                <h4 class="card-text">@Model.FullName</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h5 class="card-title">Department</h5>
+                <h4 class="card-text">@Model.Department</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <h5 class="card-title">Role</h5>
+                <h4 class="card-text">@Model.Role</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Quick Links</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a asp-controller="Employee" asp-action="Profile" class="btn btn-outline-primary">My Profile</a>
+                    <a asp-controller="Employee" asp-action="SalarySlips" class="btn btn-outline-success">Salary Slips</a>
+                    <a href="#" class="btn btn-outline-info">Leave Application</a>
+                    <a href="#" class="btn btn-outline-warning">Expense Claims</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Upcoming Events</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item">Team Meeting - Tomorrow at 10:00 AM</li>
+                    <li class="list-group-item">Company Townhall - Next Friday</li>
+                    <li class="list-group-item">Training Session - Web Development (March 15)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

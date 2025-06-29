@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to HRWebApp</h1>
+    <p>Manage your employees, departments, and products with ease.</p>
+
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <div class="mt-5">
+            <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-lg">Login to Get Started</a>
+        </div>
+    }
+</div>

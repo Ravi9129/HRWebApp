@@ -1,0 +1,91 @@
+﻿@model HRWebApp.DTOs.EmployeeShiftDTO
+
+@{
+    ViewData["Title"] = "Edit Employee Shift";
+    var employeeId = ViewContext.RouteData.Values["id"];
+}
+
+<h2>Edit Employee Shift</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="EmployeeShift" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="employeeId" value="@employeeId" />
+
+            <div class="form-group mb-3">
+                <label asp-for="StartTime" class="control-label"></label>
+                <input asp-for="StartTime" type="time" class="form-control" />
+                <span asp-validation-for="StartTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="EndTime" class="control-label"></label>
+                <input asp-for="EndTime" type="time" class="form-control" />
+                <span asp-validation-for="EndTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="WeeklyOffDay" class="control-label"></label>
+                <select asp-for="WeeklyOffDay" class="form-control">
+                    <option value="Sunday">Sunday</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                </select>
+                <span asp-validation-for="WeeklyOffDay" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check mb-3">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasLunchBreak" /> @Html.DisplayNameFor(model => model.HasLunchBreak)
+                </label>
+            </div>
+
+            <div class="form-group mb-3" id="lunchBreakGroup">
+                <label asp-for="LunchBreakStart" class="control-label"></label>
+                <input asp-for="LunchBreakStart" type="time" class="form-control" />
+                <span asp-validation-for="LunchBreakStart" class="text-danger"></span>
+
+                <label asp-for="LunchBreakEnd" class="control-label mt-2"></label>
+                <input asp-for="LunchBreakEnd" type="time" class="form-control" />
+                <span asp-validation-for="LunchBreakEnd" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="EmployeeDetails" asp-route-id="@employeeId" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function() {
+            // Show/hide lunch break fields based on checkbox
+            function toggleLunchBreakFields() {
+                if ($('#HasLunchBreak').is(':checked')) {
+                    $('#lunchBreakGroup').show();
+                } else {
+                    $('#lunchBreakGroup').hide();
+                }
+            }
+
+            // Initial state
+            toggleLunchBreakFields();
+
+            // Change event
+            $('#HasLunchBreak').change(function() {
+                toggleLunchBreakFields();
+            });
+        });
+    </script>
+}

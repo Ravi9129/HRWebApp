@@ -1,0 +1,35 @@
+﻿@model HRWebApp.DTOs.EmployeeBankDetailDTO
+
+<div class="row">
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4">Bank Name</dt>
+            <dd class="col-sm-8">@Model.BankName</dd>
+
+            <dt class="col-sm-4">Account Number</dt>
+            <dd class="col-sm-8">@Model.AccountNumber</dd>
+
+            <dt class="col-sm-4">IFSC Code</dt>
+            <dd class="col-sm-8">@Model.IFSCode</dd>
+
+            <dt class="col-sm-4">Branch Name</dt>
+            <dd class="col-sm-8">@Model.BranchName</dd>
+
+            <dt class="col-sm-4">EPFO Number</dt>
+            <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.EPFONumber) ? "N/A" : Model.EPFONumber)</dd>
+
+            <dt class="col-sm-4">UAN Number</dt>
+            <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.UANNumber) ? "N/A" : Model.UANNumber)</dd>
+
+            <dt class="col-sm-4">ESIC Number</dt>
+            <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.ESICNumber) ? "N/A" : Model.ESICNumber)</dd>
+        </dl>
+    </div>
+</div>
+
+@if (ViewContext.RouteData.Values["action"].ToString() != "EmployeeBankDetails")
+{
+    <div>
+        <a asp-action="EmployeeBankDetails" asp-route-id="@ViewContext.RouteData.Values["id"]" class="btn btn-primary">Edit Bank Details</a>
+    </div>
+}

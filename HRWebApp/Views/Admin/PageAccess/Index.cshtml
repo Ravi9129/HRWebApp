@@ -1,0 +1,85 @@
+﻿@model IEnumerable<HRWebApp.DTOs.PageAccessDetailDTO>
+
+@{
+    ViewData["Title"] = "Page Access Permissions";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Page Access Permissions</h2>
+    <a asp-action="CreatePageAccess" class="btn btn-primary">Add New Permission</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>Page</th>
+                    <th>View</th>
+                    <th>Create</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.RoleName</td>
+                        <td>@item.PageName</td>
+                        <td>
+                            @if (item.CanView)
+                            {
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-x-circle-fill text-danger"></i>
+                            }
+                        </td>
+                        <td>
+                            @if (item.CanCreate)
+                            {
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-x-circle-fill text-danger"></i>
+                            }
+                        </td>
+                        <td>
+                            @if (item.CanEdit)
+                            {
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-x-circle-fill text-danger"></i>
+                            }
+                        </td>
+                        <td>
+                            @if (item.CanDelete)
+                            {
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-x-circle-fill text-danger"></i>
+                            }
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a asp-action="EditPageAccess" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                                <form asp-action="DeletePageAccess" asp-route-id="@item.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this permission?');">
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
